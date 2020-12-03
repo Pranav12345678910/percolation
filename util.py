@@ -34,6 +34,10 @@ class Graph:
                 return v
         return None
 
+    def vUncoloredAmount(self):
+        return len([v for v in self.V if v.color == -1])
+
+
     # Returns the incident edges on a vertex.
     def IncidentEdges(self, v):
         return [e for e in self.E if (e.a == v or e.b == v)]
