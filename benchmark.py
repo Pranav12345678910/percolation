@@ -63,8 +63,10 @@ def PlayGraph(s, t, graph):
         try:
             original_vertex = GetVertex(graph, chosen_vertex.index)
             if not original_vertex:
+                print("case 1")
                 return 1 - active_player
             if original_vertex.color != -1:
+                print("case 2")
                 return 1 - active_player
             # If output is reasonable, color this vertex.
             original_vertex.color = active_player
@@ -99,8 +101,10 @@ def PlayGraph(s, t, graph):
         try:
             original_vertex = GetVertex(graph, chosen_vertex.index)
             if not original_vertex:
+                print("case 3")
                 return 1 - active_player
             if original_vertex.color != active_player:
+                print("case 4 ")
                 return 1 - active_player
             # If output is reasonable, remove ("percolate") this vertex + edges attached to it, as well as isolated vertices.
             Percolate(graph, original_vertex)
