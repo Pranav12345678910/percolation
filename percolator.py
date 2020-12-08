@@ -53,22 +53,22 @@ class PercolationPlayer:
 
     def Searchthingy(graph, v):
         frontier = [v]
-        #discovered needs to be a set with tuples that represent 1d states 
-        discovered = set(v)  
-        #state is a 2d tuple already, so since it is hashable I can immediately add it
+        discovered = set([v])  
         parents = {graph : ()}
+        count = 0
+        #2d list where each element is a three element tuple, where each tuple represents a game state, and the first element of the tuple is the root vertex, 
+        #the second element is number of edges connected to our color vertices, and the third element is the amount of moves so far (including the opponents)
         while len(frontier) != 0:
             current_state = frontier.pop(0)
-            discovered.add()
+            discovered.add(current_state)
+            #return if two moves ahead    
             if isGoal(current_state):
                 #return every key in the dictionary (node) in the order of most recently to last recently placed nodes
                 return parents[tuple(map(tuple, current_state))]
-            neighbors = convertStates(computeNeighbors(current_state))  
-            for neighbor in range(len(neighbors)):
-                active_state = neighbors[neighbor]
-                if tuple(flatten(active_state)) not in discovered:
-                    frontier.append(active_state)
-                    discovered.add(tuple(flatten(active_state)))
-                    new_path = list(parents[(tuple(map(tuple, current_state)))])
-                    new_path.append(computeNeighbors(current_state)[neighbor][0])
-                    parents[tuple(map(tuple, active_state))] = tuple(new_path)
+            neighboring_vertices = Neighbors(graph, v)  
+            for neighbor in range(len(neighboring_vertices)):
+                active_v = neighboring_vertices[neighbor]
+                if active_v not in discovered:
+                    frontier.append(active_v)
+                    discovered.add(active_v)
+                    
