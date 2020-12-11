@@ -44,11 +44,21 @@ class PercolationPlayer:
         #next move is the one we want to pick 
         pass
 
+
     def graphWithoutVertex(graph, v):
         #returns a new graph without the original vertex v and without its corresponding edges
-        newV = {x for x in graph.V if x!= v}
-        newE = {y for y in graph.E if y.a != v or y.b != v}
-        return Graph(newV, newE)
+        #contructing new graph
+        # newV = {x for x in graph.V if x!= v}
+        # newE = {y for y in graph.E if y.a != v or y.b != v}
+        # return Graph(newV, newE)
+        #removing
+        graphB = graph
+        graphB.V = graphB.V.remove(v)
+        for x in graphB.E:
+            if x.a == v or x.b == v:
+                graphB.E = graphB.E.remove(x)
+        return graphB
+    def 
 
     def Searchthingy(graph, v):
         frontier = [graph]
