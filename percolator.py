@@ -24,6 +24,10 @@ class PercolationPlayer:
                 adjacent.append(i.a)
         return adjacent
 
+    def computeFutureGraph(graph, v):
+
+    def computeFutureGraphs(graph, v):
+
     def ChooseVertexToColor(graph, player):
         #do not create patches of only your color (connections involving two of your own vertices are harmful)
         #try to connect to their vertices as much as possible and our own vertices as little as possible
@@ -52,23 +56,37 @@ class PercolationPlayer:
     '''
 
     def Searchthingy(graph, v):
-        frontier = [v]
-        discovered = set([v])  
-        parents = {graph : ()}
+        frontier = [graph]
+        #list that contains several tuple pairs, where the first element is a graph (state) and the second element is the depth in the tree (sort of like count)
+        neighboring_states = []
         count = 0
-        #2d list where each element is a three element tuple, where each tuple represents a game state, and the first element of the tuple is the root vertex, 
-        #the second element is number of edges connected to our color vertices, and the third element is the amount of moves so far (including the opponents)
         while len(frontier) != 0:
             current_state = frontier.pop(0)
-            discovered.add(current_state)
+            #if we have fully reached the 2 step depth, then return
+            #we know if we have fully searched a depth if the number of vertices that we could have removed
+            #on the previous level is equivalent to the number of states we have discovered 
+            if neighboring_states[len(neighboring_states) - 1][1] == 2:
+                #return all the 2 depth graphs in neighboring state
+            for neighbor in computeFutureGraph(current_state, v):
+                #having trouble figuring out how to do an entire graph depth and then move on to the next depth. Because then how do I fill frontier. 
+                #I need to fill it with all of one depth and then search that depth after I have fully searched the previous one
+                #I don't want to search just one thing at a time and then keep doing it again and again
+            '''       
+            if count == 0:    
+                neighboring_states.append((computeFutureGraph(graph, v), 1))
+                frontier.append(computeFutureGraph(graph, v))
+            if count == 1:  
+                neighboring_states.remove(neighboring_states[0])        
+                neighboring_states = computeFutureGraphs(graph, v)
+                for x in neighboring_states:
+                    neighboring_states.append((x, 2))
+                count += 1
+                #now I want to explore each of these neighboring states individually, and capture all those resulting states, and at that point 
+                #I am done searching and I need to return 
             #return if two moves ahead    
-            if isGoal(current_state):
-                #return every key in the dictionary (node) in the order of most recently to last recently placed nodes
-                return parents[tuple(map(tuple, current_state))]
-            neighboring_vertices = Neighbors(graph, v)  
-            for neighbor in range(len(neighboring_vertices)):
-                active_v = neighboring_vertices[neighbor]
-                if active_v not in discovered:
-                    frontier.append(active_v)
-                    discovered.add(active_v)
+            if count == 2:
+                
+                return neighboring_state    
+            count += 1
+            
                     
